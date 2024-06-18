@@ -5,18 +5,17 @@ console.log("Fetch Poke JSON");
 
 
 const blb= async () =>{
-    const response= await fetch("./bulbasaur.json")
-    const data= await response.json()
-    let string=""
-    data.forEach(element => {
-      
-        string+=`
-        <h1>${element.name}</h1>
-        <span>${element.types.name}</span>
-        <table>${element.atats.base_stat.name}</table>`
-        document.getElementById("pokeName").innerHTML=string
-        
-    });
+    const response= await fetch("./bulbasaur.json");
+    const data= await response.json();
+    
+    const pokeName=data.name;
+    const pokeTypes=data.types.map(type=>type.type.name).join(",");
+    const pokeStats=data.stats.map(stat=>`${stat.stat.name}:${stat.base_stat}`).join(",");
+
+    document.getElementById("pokeName").innerText=`${pokeName}`;
+    document.getElementById("pokeTypes").innerText=`${pokeTypes}`;
+    document.getElementById("pokeStats").innerText=`${pokeStats}`;
+
     
   
 }
